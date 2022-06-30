@@ -1,0 +1,35 @@
+---
+ - hosts: localhost
+   tasks:
+     - name: create 10 files
+       command: touch "{{ item }}"
+       with_items:
+         - file1.txt
+         - file2.txt
+         - file3.txt
+         - file4.txt
+         - file5.txt
+         - file6.txt
+         - file7.txt
+         - file8.txt
+         - file9.txt
+         - file10.txt
+
+     - name: add content to 10 files
+       shell: echo "this is ansible test" > "{{ item }}"
+       with_items:
+         - file1.txt
+         - file2.txt
+         - file3.txt
+         - file4.txt
+         - file5.txt
+         - file6.txt
+         - file7.txt
+         - file8.txt
+         - file9.txt
+         - file10.txt
+
+     - name: deploy html code to appln
+       shell: sudo cp file1.txt /var/www/html/index.html
+
+
