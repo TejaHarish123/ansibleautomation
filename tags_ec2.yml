@@ -1,0 +1,11 @@
+---
+ - hosts: localhost
+   tasks:
+     - name: to add a tag
+       ec2_tag:
+         region: us-east-2
+         resource: i-0982c73da9d064c0f
+         state: present
+         tags:
+          Name: ansibleLinux
+          env: dev

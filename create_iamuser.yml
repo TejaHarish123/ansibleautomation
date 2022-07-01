@@ -1,0 +1,21 @@
+---
+  - hosts: localhost
+    tasks:
+      - name: create a iam user
+        iam_user:
+            name: testuser1
+            managed_policy:
+                 - arn:aws:iam::aws:policy/AmazonS3FullAccess
+                 - arn:aws:iam::aws:policy/IAMFullAccess
+                 - arn:aws:iam::aws:policy/AmazonEC2FullAccess
+            state: present
+
+      - name: create a group for iam user
+        iam_group:
+            name: testgroup
+            state: present
+            managed_policy:
+                 - arn:aws:iam::aws:policy/AmazonS3FullAccess
+                 - arn:aws:iam::aws:policy/IAMFullAccess
+                 - arn:aws:iam::aws:policy/AmazonEC2FullAccess
+
