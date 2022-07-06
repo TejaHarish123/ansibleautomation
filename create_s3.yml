@@ -1,0 +1,7 @@
+---
+ - hosts: localhost
+   tasks:
+     - name: create s3 bucket
+       s3_bucket:
+          name: pasunuti123
+          state: present
