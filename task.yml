@@ -1,0 +1,48 @@
+---
+ - hosts: localhost
+   tasks:
+     - name: get ec2 instance info
+       ec2_instance_info:
+         instance_ids: i-03a1dd1ce86154a73
+         region: us-east-2
+       register: ec2_output
+
+     - name: to print ec2 instance info in console
+       debug:
+         msg: "{{ec2_output}}"
+
+     - name: to set variables to instance id
+       set_fact: 
+        ec2_id: "{{ec2_output.instances[0].instance_id}}"
+
+     - name: to add/update tags to instance
+       ec2_tag:
+         resource: "{{ec2_id}}"
+         state: present
+         tags:
+          name: ansibletag-amazonlinux
+          env: dev
+
+     - name: to set variables to image id
+       set_fact:
+         ec2_image: "{{ec2_output.instances[0].image_id}}"
+
+     - name: to add image tag
+       ec2_tag:
+         resource: "{{ec2_image}}"
+         state: present
+         tags:
+          name: ansibleImg-amazonlinux
+          env: image
+
+     - name: to set variables to volume
+       set_fact:
+         ec2_volume: "{{ec2_output.instances[0].block_device_mappings[0].ebs.volume_id}}"
+
+     - name: to add tags to volume
+       ec2_tag:
+         resource: "{{ec2_volume}}"
+         state: present
+         tags:
+          name: ansibleVol-amazonlinux
+          env: vol  
