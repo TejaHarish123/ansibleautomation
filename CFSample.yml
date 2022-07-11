@@ -1,0 +1,13 @@
+---
+ - hosts: localhost
+   tasks:
+     - name: create a cloudformation stack
+       cloudformation:
+        stack_name: "ansible-cloudformation"
+        state: "present"
+        template: "CF_EC2Sample.yml"
+        disable_rollback: true
+        template_parameters:
+          SSHLocation: 0.0.0.0/0
+        tags:
+         Stack: "ansible-cloudformation"
